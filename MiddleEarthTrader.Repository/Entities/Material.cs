@@ -15,5 +15,7 @@ namespace MiddleEarthTrader.Repository.Entities
         public decimal BaseValue { get; set; } 
         public int CategoryId { get; set; }
         public int RarityLevel { get; set; }
+        public bool Status { get; set; }
+
     }
 }
