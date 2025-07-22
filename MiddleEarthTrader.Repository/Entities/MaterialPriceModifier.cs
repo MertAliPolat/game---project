@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MiddleEarthTrader.Repository.Entities
 {
-    public class MaterialPriceModifier
+    public class MaterialPriceModifier : BaseEntity
     {
         [ForeignKey(nameof(GameEvent))]
         public Guid EventId { get; set; }
