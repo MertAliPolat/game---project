@@ -1,4 +1,4 @@
-using MiddleEarthTrader.Repository.DbContext;
+using MiddleEarthTrader.Repository.ContextDb;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MiddleEarthTrader.Repository.Entities;
 
-namespace MiddleEarthTrader.Repository.DbContext
+namespace MiddleEarthTrader.Repository.ContextDb
 {
     public class AppDbContext : DbContext
 
@@ -11,7 +11,9 @@ namespace MiddleEarthTrader.Repository.DbContext
 
         }
 
-        public DbSet<Character> characters { get; set; }
+        public DbSet<Material> Materials { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
 
     }
 }
