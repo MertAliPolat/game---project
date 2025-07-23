@@ -7,9 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Dtos\" />
-    <Folder Include="Mapping\" />
-    <Folder Include="Services\" />
+    <PackageReference Include="AutoMapper" Version="12.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MiddleEarthTrader.Repository\MiddleEarthTrader.Repository.csproj" />
   </ItemGroup>
 
 </Project>
