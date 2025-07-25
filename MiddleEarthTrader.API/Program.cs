@@ -5,6 +5,7 @@ using MiddleEarthTrader.Repository.Repositories;
 using MiddleEarthTrader.Service.Interfaces;
 using MiddleEarthTrader.Service.Mapping;
 using MiddleEarthTrader.Service.Services;
+using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
