@@ -15,6 +15,13 @@ namespace MiddleEarthTrader.Service.Mapping
         {
             CreateMap<User, UserDto>()
                 .ForMember(dest => dest.NationName, opt => opt.MapFrom(src => src.Nation.Name));
+
+            CreateMap<Material, MaterialDto>()
+    .ForMember(dest => dest.CreatedByUsername,
+               opt => opt.MapFrom(src => src.CreatedByUser.Username))
+    .ForMember(dest => dest.NationName,
+               opt => opt.MapFrom(src => src.CreatedByUser.Nation.Name));
+
         }
     }
 }

@@ -36,6 +36,11 @@ namespace MiddleEarthTrader.Repository.Entities
 
         public decimal RarityFactor { get; set; }
 
+        [ForeignKey(nameof(CreatedByUser))]
+        public Guid CreatedByUserId { get; set; }
+        public User CreatedByUser { get; set; }
+
+
         // Navigation Properties
         public ICollection<Inventory> Inventories { get; set; }
         public ICollection<Trade> Trades { get; set; }

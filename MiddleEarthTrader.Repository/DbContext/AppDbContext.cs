@@ -11,6 +11,22 @@ namespace MiddleEarthTrader.Repository.ContextDb
         {
 
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Material>()
+                .HasOne<User>(m => m.CreatedByUser)
+                .WithMany()
+                .HasForeignKey(m => m.CreatedByUserId)
+                .OnDelete(DeleteBehavior.Restrict); 
+
+            modelBuilder.Entity<Category>()
+               .Property(x => x.Id)
+               .HasDefaultValueSql("NEWID()");
+
+            base.OnModelCreating(modelBuilder);
+        }
+       
         public DbSet<User> Users { get; set; }
         public DbSet<Nation> Nations { get; set; }
         public DbSet<Material> Materials { get; set; }
