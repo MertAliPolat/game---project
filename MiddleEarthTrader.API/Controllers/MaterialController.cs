@@ -18,7 +18,7 @@ namespace MiddleEarthTrader.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MaterialDto>>> GetAllMaterials()
         {
-            var materials = await _materialService.GetAllMaterials();
+            var materials = await _materialService.GetAllAsync();
             return Ok(materials);
         }
     }

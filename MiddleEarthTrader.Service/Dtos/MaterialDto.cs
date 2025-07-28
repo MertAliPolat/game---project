@@ -22,7 +22,6 @@ namespace MiddleEarthTrader.Service.Dtos
 
         public string CreatedByUsername { get; set; }
         public string NationName { get; set; }
-        public List<MaterialPriceModifierDto> PriceModifiers { get; set; }
 
     }
 }

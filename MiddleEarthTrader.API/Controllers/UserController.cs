@@ -1,5 +1,6 @@
-﻿using MiddleEarthTrader.Service.Interfaces;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
+using MiddleEarthTrader.Service.Dtos;
+using MiddleEarthTrader.Service.Interfaces;
 
 namespace MiddleEarthTrader.API.Controllers
 {
@@ -17,8 +18,19 @@ namespace MiddleEarthTrader.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetUsers()
         {
-            var users = await _userService.GetUsersAsync();
+            var users = await _userService.GetAllAsync();
             return Ok(users);
+        }
+
+        [HttpPost("login")]
+        public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
+        {
+            var result = await _userService.LoginAsync(loginDto);
+
+            if (!result)
+                return Unauthorized("Kullanıcı adı veya şifre hatalı.");
+
+            return Ok("Giriş başarılı.");
         }
     }
 }

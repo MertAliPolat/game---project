@@ -21,16 +21,12 @@ namespace MiddleEarthTrader.Service.Services
             _mapper = mapper;
         }
 
-        public async Task<IEnumerable<MaterialDto>> GetAllMaterials()
+        public async Task<IEnumerable<MaterialDto>> GetAllAsync()
         {
                        var materials = await _materialRepository.GetAllMaterialsAsync();
             return _mapper.Map<IEnumerable<MaterialDto>>(materials);
         }
-        public async Task<IEnumerable<MaterialDto>> GetAllMaterialsWithModifiers()
-        {
-            var materials = await _materialRepository.GetAllWithModifiersAsync();
-            return _mapper.Map<IEnumerable<MaterialDto>>(materials);
-        }
+
 
 
 

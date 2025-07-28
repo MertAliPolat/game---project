@@ -7,9 +7,8 @@ using MiddleEarthTrader.Service.Dtos;
 
 namespace MiddleEarthTrader.Service.Interfaces
 {
-    public interface IMaterialService
+    public interface IMaterialService :  IGenericService<MaterialDto>
     {
-        Task<IEnumerable<MaterialDto>> GetAllMaterials();
 
     }
 }
