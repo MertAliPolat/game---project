@@ -28,9 +28,20 @@ namespace MiddleEarthTrader.API.Controllers
             var result = await _userService.LoginAsync(loginDto);
 
             if (!result)
-                return Unauthorized("Kullanıcı adı veya şifre hatalı.");
+            {
+                return Unauthorized(new
+                {
+                    success = false,
+                    message = "Kullanıcı adı veya şifre hatalı."
+                });
+            }
 
-            return Ok("Giriş başarılı.");
+            return Ok(new
+            {
+                success = true,
+                message = "Giriş başarılı."
+            });
         }
+
     }
 }
