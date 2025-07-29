@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MiddleEarthTrader.Service.Interfaces;
 using MiddleEarthTrader.Service.Dtos;
+using System.Collections.Generic;
 
 namespace MiddleEarthTrader.API.Controllers
 {
