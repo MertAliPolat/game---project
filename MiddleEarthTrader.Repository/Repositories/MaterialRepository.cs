@@ -21,8 +21,7 @@ namespace MiddleEarthTrader.Repository.Repositories
         public async Task<IEnumerable<Material>> GetAllMaterialsAsync()
         {
             return await _context.Materials
-                .Include(m => m.CreatedByUser)
-                .ThenInclude(u => u.Nation) 
+                .Include(m => m.Nation) 
                 .ToListAsync();
         }
 

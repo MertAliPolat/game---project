@@ -13,14 +13,11 @@ namespace MiddleEarthTrader.Service.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<User, UserDto>()
-                .ForMember(dest => dest.NationName, opt => opt.MapFrom(src => src.Nation.Name));
-
             CreateMap<Material, MaterialDto>()
-    .ForMember(dest => dest.CreatedByUsername,
-               opt => opt.MapFrom(src => src.CreatedByUser.Username))
     .ForMember(dest => dest.NationName,
-               opt => opt.MapFrom(src => src.CreatedByUser.Nation.Name));
+                    opt => opt.MapFrom(src => src.Nation.Name))
+                .ForMember(dest => dest.PriceChangePercentage,
+                    opt => opt.MapFrom(src => /* fiyat değişim yüzdesi hesaplama kodunu buraya ekle */ 0));
 
         }
     }

@@ -15,9 +15,20 @@ namespace MiddleEarthTrader.Repository.ContextDb
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Material>()
-                .HasOne<User>(m => m.CreatedByUser)
+                .HasOne<Nation>(m => m.Nation)
+                .WithMany(n => n.AvailableMaterials)
+                .HasForeignKey(m => m.NationId);
+
+            modelBuilder.Entity<Inventory>()
+                .HasOne(i => i.User)
                 .WithMany()
-                .HasForeignKey(m => m.CreatedByUserId)
+                .HasForeignKey(i => i.UserId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Trade>()
+                .HasOne(t => t.User)
+                .WithMany()
+                .HasForeignKey(t => t.UserId)
                 .OnDelete(DeleteBehavior.Restrict); 
 
             modelBuilder.Entity<Category>()

@@ -119,11 +119,16 @@ namespace MiddleEarthTrader.Repository.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MaterialId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Inventories");
                 });
@@ -146,9 +151,6 @@ namespace MiddleEarthTrader.Repository.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<Guid>("CreatedByUserId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<decimal>("CurrentPrice")
                         .HasColumnType("decimal(18,2)");
 
@@ -165,7 +167,7 @@ namespace MiddleEarthTrader.Repository.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
-                    b.Property<Guid?>("NationId")
+                    b.Property<Guid>("NationId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<decimal>("RarityFactor")
@@ -183,8 +185,6 @@ namespace MiddleEarthTrader.Repository.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("CreatedByUserId");
 
                     b.HasIndex("NationId");
 
@@ -322,11 +322,16 @@ namespace MiddleEarthTrader.Repository.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("UserId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
                     b.HasIndex("MaterialId");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("Trades");
                 });
@@ -350,9 +355,6 @@ namespace MiddleEarthTrader.Repository.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<Guid>("NationId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("PasswordHash")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -370,8 +372,6 @@ namespace MiddleEarthTrader.Repository.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NationId");
-
                     b.ToTable("Users");
                 });
 
@@ -384,10 +384,14 @@ namespace MiddleEarthTrader.Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("MiddleEarthTrader.Repository.Entities.User", "User")
-                        .WithMany("Inventories")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MiddleEarthTrader.Repository.Entities.User", null)
+                        .WithMany("Inventories")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Material");
 
@@ -400,17 +404,13 @@ namespace MiddleEarthTrader.Repository.Migrations
                         .WithMany("Materials")
                         .HasForeignKey("CategoryId");
 
-                    b.HasOne("MiddleEarthTrader.Repository.Entities.User", "CreatedByUser")
-                        .WithMany()
-                        .HasForeignKey("CreatedByUserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("MiddleEarthTrader.Repository.Entities.Nation", "Nation")
+                        .WithMany("AvailableMaterials")
+                        .HasForeignKey("NationId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("MiddleEarthTrader.Repository.Entities.Nation", null)
-                        .WithMany("AvailableMaterials")
-                        .HasForeignKey("NationId");
-
-                    b.Navigation("CreatedByUser");
+                    b.Navigation("Nation");
                 });
 
             modelBuilder.Entity("MiddleEarthTrader.Repository.Entities.MaterialPriceHistory", b =>
@@ -452,25 +452,18 @@ namespace MiddleEarthTrader.Repository.Migrations
                         .IsRequired();
 
                     b.HasOne("MiddleEarthTrader.Repository.Entities.User", "User")
-                        .WithMany("Trades")
+                        .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("MiddleEarthTrader.Repository.Entities.User", null)
+                        .WithMany("Trades")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Material");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("MiddleEarthTrader.Repository.Entities.User", b =>
-                {
-                    b.HasOne("MiddleEarthTrader.Repository.Entities.Nation", "Nation")
-                        .WithMany("Users")
-                        .HasForeignKey("NationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Nation");
                 });
 
             modelBuilder.Entity("MiddleEarthTrader.Repository.Entities.Category", b =>
@@ -495,8 +488,6 @@ namespace MiddleEarthTrader.Repository.Migrations
             modelBuilder.Entity("MiddleEarthTrader.Repository.Entities.Nation", b =>
                 {
                     b.Navigation("AvailableMaterials");
-
-                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("MiddleEarthTrader.Repository.Entities.User", b =>

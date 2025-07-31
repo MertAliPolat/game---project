@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MiddleEarthTrader.Repository.Migrations
 {
     /// <inheritdoc />
-    public partial class AddedBaseEntityToCategoryZero : Migration
+    public partial class InitalCrate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -73,7 +73,6 @@ namespace MiddleEarthTrader.Repository.Migrations
                     Username = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PasswordHash = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    NationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Gold = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Role = table.Column<int>(type: "int", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -83,12 +82,6 @@ namespace MiddleEarthTrader.Repository.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Users_Nations_NationId",
-                        column: x => x.NationId,
-                        principalTable: "Nations",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -104,9 +97,8 @@ namespace MiddleEarthTrader.Repository.Migrations
                     TotalStock = table.Column<int>(type: "int", nullable: false),
                     AvailableStock = table.Column<int>(type: "int", nullable: false),
                     RarityFactor = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    CreatedByUserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    NationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     CategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    NationId = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -123,13 +115,8 @@ namespace MiddleEarthTrader.Repository.Migrations
                         name: "FK_Materials_Nations_NationId",
                         column: x => x.NationId,
                         principalTable: "Nations",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Materials_Users_CreatedByUserId",
-                        column: x => x.CreatedByUserId,
-                        principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,6 +128,7 @@ namespace MiddleEarthTrader.Repository.Migrations
                     MaterialId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     AveragePurchasePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -159,7 +147,12 @@ namespace MiddleEarthTrader.Repository.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Inventories_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -225,6 +218,7 @@ namespace MiddleEarthTrader.Repository.Migrations
                     Quantity = table.Column<int>(type: "int", nullable: false),
                     UnitPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    UserId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
                     CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "datetime2", nullable: true),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false)
@@ -243,7 +237,12 @@ namespace MiddleEarthTrader.Repository.Migrations
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trades_Users_UserId1",
+                        column: x => x.UserId1,
+                        principalTable: "Users",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -255,6 +254,11 @@ namespace MiddleEarthTrader.Repository.Migrations
                 name: "IX_Inventories_UserId",
                 table: "Inventories",
                 column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Inventories_UserId1",
+                table: "Inventories",
+                column: "UserId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MaterialPriceHistories_MaterialId",
@@ -277,11 +281,6 @@ namespace MiddleEarthTrader.Repository.Migrations
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Materials_CreatedByUserId",
-                table: "Materials",
-                column: "CreatedByUserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Materials_NationId",
                 table: "Materials",
                 column: "NationId");
@@ -297,9 +296,9 @@ namespace MiddleEarthTrader.Repository.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Users_NationId",
-                table: "Users",
-                column: "NationId");
+                name: "IX_Trades_UserId1",
+                table: "Trades",
+                column: "UserId1");
         }
 
         /// <inheritdoc />
@@ -324,10 +323,10 @@ namespace MiddleEarthTrader.Repository.Migrations
                 name: "Materials");
 
             migrationBuilder.DropTable(
-                name: "Categories");
+                name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "Categories");
 
             migrationBuilder.DropTable(
                 name: "Nations");

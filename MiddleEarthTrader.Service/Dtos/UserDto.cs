@@ -12,6 +12,5 @@ namespace MiddleEarthTrader.Service.Dtos
         public string Username { get; set; }
         public string Email { get; set; }
         public decimal Gold { get; set; }
-        public string NationName { get; set; }
     }
 }

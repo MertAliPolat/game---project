@@ -21,7 +21,7 @@ namespace MiddleEarthTrader.Repository.Entities
         public bool IsAllowedTrading { get; set; } = true;
 
         // Navigation Properties
-        public ICollection<User> Users { get; set; }
+        
 
         public ICollection<Material> AvailableMaterials { get; set; }
     }

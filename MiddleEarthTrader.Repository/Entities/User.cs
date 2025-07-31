@@ -22,9 +22,7 @@ namespace MiddleEarthTrader.Repository.Entities
         [Required]
         public string PasswordHash { get; set; }
 
-        [ForeignKey(nameof(Nation))]
-        public Guid NationId { get; set; }
-        public Nation Nation { get; set; }
+        // NationId ve Nation navigation property kaldırıldı
 
         public decimal Gold { get; set; } = 1000;
 

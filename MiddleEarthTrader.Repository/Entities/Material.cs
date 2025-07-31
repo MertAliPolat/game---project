@@ -36,9 +36,10 @@ namespace MiddleEarthTrader.Repository.Entities
 
         public decimal RarityFactor { get; set; }
 
-        [ForeignKey(nameof(CreatedByUser))]
-        public Guid CreatedByUserId { get; set; }
-        public User CreatedByUser { get; set; }
+        // Satıcı millet
+        [ForeignKey(nameof(Nation))]
+        public Guid NationId { get; set; }
+        public Nation Nation { get; set; }
 
 
         // Navigation Properties
