@@ -25,6 +25,7 @@ namespace MiddleEarthTrader.Repository.Entities
 
         public bool IsActive { get; set; } = true;
 
+
         // Navigation Properties
         public ICollection<MaterialPriceModifier> MaterialPriceModifiers { get; set; }
     }

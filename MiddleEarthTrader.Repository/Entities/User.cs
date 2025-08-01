@@ -22,13 +22,10 @@ namespace MiddleEarthTrader.Repository.Entities
         [Required]
         public string PasswordHash { get; set; }
 
-        // NationId ve Nation navigation property kaldırıldı
-
         public decimal Gold { get; set; } = 1000;
 
         public UserRole Role { get; set; } = UserRole.Player;
 
-        // Navigation Properties
         public ICollection<Inventory> Inventories { get; set; }
         public ICollection<Trade> Trades { get; set; }
     }

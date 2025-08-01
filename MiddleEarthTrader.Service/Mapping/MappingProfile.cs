@@ -14,11 +14,9 @@ namespace MiddleEarthTrader.Service.Mapping
         public MappingProfile()
         {
             CreateMap<Material, MaterialDto>()
-    .ForMember(dest => dest.NationName,
-                    opt => opt.MapFrom(src => src.Nation.Name))
-                .ForMember(dest => dest.PriceChangePercentage,
-                    opt => opt.MapFrom(src => /* fiyat değişim yüzdesi hesaplama kodunu buraya ekle */ 0));
-
+                .ForMember(dest => dest.NationName, opt => opt.MapFrom(src => src.Nation.Name))
+                .ForMember(dest => dest.PriceChangePercentage, opt => opt.MapFrom(src =>
+                    src.BasePrice == 0 ? 0 : ((src.CurrentPrice - src.BasePrice) / src.BasePrice) * 100));
         }
     }
 }
