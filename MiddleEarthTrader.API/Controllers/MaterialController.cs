@@ -22,5 +22,15 @@ namespace MiddleEarthTrader.API.Controllers
             var materials = await _materialService.GetAllAsync();
             return Ok(materials);
         }
+
+        [HttpPost("modify-prices")]
+        public async Task<IActionResult> ModifyPrices([FromBody] List<MaterialPriceModifierDto> modifiers)
+        {
+            if (modifiers == null || !modifiers.Any())
+                return BadRequest("Geçersiz veri.");
+
+            await _materialService.ModifyPricesAsync(modifiers);
+            return Ok("Fiyatlar başarıyla güncellendi.");
+        }
     }
 }

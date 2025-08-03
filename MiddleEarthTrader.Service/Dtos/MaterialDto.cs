@@ -20,7 +20,7 @@ namespace MiddleEarthTrader.Service.Dtos
         public int AvailableStock { get; set; }
         public decimal RarityFactor { get; set; }
 
-        public string NationName { get; set; }
+        public string NationName { get; set; } 
         public decimal PriceChangePercentage { get; set; }
 
     }

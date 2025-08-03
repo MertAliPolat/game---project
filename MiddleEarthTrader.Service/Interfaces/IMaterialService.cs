@@ -9,6 +9,7 @@ namespace MiddleEarthTrader.Service.Interfaces
 {
     public interface IMaterialService :  IGenericService<MaterialDto>
     {
+        Task ModifyPricesAsync(List<MaterialPriceModifierDto> modifiers);
 
     }
 }

@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
+using MiddleEarthTrader.Repository.Entities;
 using MiddleEarthTrader.Repository.Repositories;
 using MiddleEarthTrader.Service.Dtos;
 using MiddleEarthTrader.Service.Interfaces;
@@ -27,6 +29,11 @@ namespace MiddleEarthTrader.Service.Services
             return _mapper.Map<IEnumerable<MaterialDto>>(materials);
         }
 
+        public async Task ModifyPricesAsync(List<MaterialPriceModifierDto> modifiers)
+        {
+            var entities = _mapper.Map<List<MaterialPriceModifier>>(modifiers);
+            await _materialRepository.ModifyPricesAsync(entities);
+        }
 
 
 

@@ -17,6 +17,9 @@ namespace MiddleEarthTrader.Service.Mapping
                 .ForMember(dest => dest.NationName, opt => opt.MapFrom(src => src.Nation.Name))
                 .ForMember(dest => dest.PriceChangePercentage, opt => opt.MapFrom(src =>
                     src.BasePrice == 0 ? 0 : ((src.CurrentPrice - src.BasePrice) / src.BasePrice) * 100));
+
+            CreateMap<MaterialPriceModifierDto, MaterialPriceModifier>();
+            CreateMap<GameEvent, GameEventDto>().ReverseMap();
         }
     }
 }

@@ -23,6 +23,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<UserRepository>();
 builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<MaterialRepository>();
+builder.Services.AddScoped<IGameEventService, GameEventService>();
+builder.Services.AddScoped<GameEventRepository>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",

@@ -10,5 +10,6 @@ namespace MiddleEarthTrader.Repository.Interfaces
     public interface IMaterialRepository
     {
         Task<IEnumerable<Material>> GetAllMaterialsAsync();
+        Task ModifyPricesAsync(List<MaterialPriceModifier> modifiers);
     }
 }
