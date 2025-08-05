@@ -29,6 +29,14 @@ namespace MiddleEarthTrader.Repository.Repositories
             return await _context.Users
                 .FirstOrDefaultAsync(u => u.Username == username);
         }
+
+        public async Task<User> GetUserProfileAsync(Guid userId)
+        {
+            return await _context.Users
+                .Include(u => u.Inventories)
+                    .ThenInclude(i => i.Material)
+                .FirstOrDefaultAsync(u => u.Id == userId);
+        }
     }
 
 }

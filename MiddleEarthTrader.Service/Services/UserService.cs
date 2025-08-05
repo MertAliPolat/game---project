@@ -37,9 +37,18 @@ namespace MiddleEarthTrader.Service.Services
             // Şifre kontrolü (örnek: plain text karşılaştırma)
             return user.PasswordHash == loginDto.Password;
 
-            // Şifreler hash'li ise:
-            // return BCrypt.Net.BCrypt.Verify(loginDto.Password, user.PasswordHash);
+            
         }
+
+
+        public async Task<ProfileDto> GetProfileAsync(Guid userId)
+        {
+            var user = await _userRepository.GetUserProfileAsync(userId);
+            if (user == null) return null;
+
+            return _mapper.Map<ProfileDto>(user);
+        }
+
     }
 
 }

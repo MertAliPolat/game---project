@@ -11,7 +11,7 @@ namespace MiddleEarthTrader.API.Controllers
     {
         private readonly IMaterialService _materialService;
 
-        public MaterialController(IMaterialService materialService)
+        public MaterialController(IMaterialService materialService, IGameEventService gameEventService)
         {
             _materialService = materialService;
         }

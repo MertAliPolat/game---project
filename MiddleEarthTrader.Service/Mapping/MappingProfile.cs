@@ -20,6 +20,12 @@ namespace MiddleEarthTrader.Service.Mapping
 
             CreateMap<MaterialPriceModifierDto, MaterialPriceModifier>();
             CreateMap<GameEvent, GameEventDto>().ReverseMap();
+
+            CreateMap<User, ProfileDto>()
+    .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
+
+            CreateMap<Inventory, InventoryDto>()
+                .ForMember(dest => dest.MaterialName, opt => opt.MapFrom(src => src.Material.Name));
         }
     }
 }

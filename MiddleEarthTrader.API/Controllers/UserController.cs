@@ -32,5 +32,15 @@ namespace MiddleEarthTrader.API.Controllers
 
             return Ok(new { success = true, message = "Giriş başarılı." });
         }
+
+        [HttpGet("profile/{userId}")]
+        public async Task<ActionResult<ProfileDto>> GetProfile(Guid userId)
+        {
+            var profile = await _userService.GetProfileAsync(userId);
+            if (profile == null)
+                return NotFound("User not found");
+
+            return Ok(profile);
+        }
     }
 }

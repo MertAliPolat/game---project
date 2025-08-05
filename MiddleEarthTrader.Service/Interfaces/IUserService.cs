@@ -11,5 +11,6 @@ namespace MiddleEarthTrader.Service.Interfaces
     public interface IUserService : IGenericService<UserDto>
     {
         Task<bool> LoginAsync(UserLoginDto loginDto);
+        Task<ProfileDto> GetProfileAsync(Guid userId);
     }
 }
