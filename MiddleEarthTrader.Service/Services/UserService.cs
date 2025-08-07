@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using MiddleEarthTrader.Repository.Entities;
+using MiddleEarthTrader.Repository.Repositories;
 using MiddleEarthTrader.Service.Dtos;
 using MiddleEarthTrader.Service.Interfaces;
-using MiddleEarthTrader.Repository.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,17 +28,17 @@ namespace MiddleEarthTrader.Service.Services
             return _mapper.Map<IEnumerable<UserDto>>(users); 
         }
 
-        public async Task<bool> LoginAsync(UserLoginDto loginDto)
+        public async Task<User?> LoginAsync(UserLoginDto loginDto)
         {
             var user = await _userRepository.GetByUsernameAsync(loginDto.Username);
 
             if (user == null)
-                return false;
+                return null;
 
-            // Şifre kontrolü (örnek: plain text karşılaştırma)
-            return user.PasswordHash == loginDto.Password;
+            if (user.PasswordHash != loginDto.Password)
+                return null;
 
-            
+            return user;
         }
 
 

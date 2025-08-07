@@ -35,6 +35,11 @@ namespace MiddleEarthTrader.Repository.ContextDb
                .Property(x => x.Id)
                .HasDefaultValueSql("NEWID()");
 
+            modelBuilder.Entity<Inventory>()
+        .HasOne(i => i.User)
+        .WithMany(u => u.Inventories)
+        .HasForeignKey(i => i.UserId);
+
             base.OnModelCreating(modelBuilder);
         }
        

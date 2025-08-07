@@ -25,12 +25,18 @@ namespace MiddleEarthTrader.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserLoginDto loginDto)
         {
-            var result = await _userService.LoginAsync(loginDto);
+            var user = await _userService.LoginAsync(loginDto);
 
-            if (!result)
+            if (user == null)
                 return Unauthorized(new { success = false, message = "Kullanıcı adı veya şifre hatalı." });
 
-            return Ok(new { success = true, message = "Giriş başarılı." });
+            return Ok(new
+            {
+                success = true,
+                message = "Giriş başarılı.",
+                id = user.Id,
+                username = user.Username 
+            });
         }
 
         [HttpGet("profile/{userId}")]
