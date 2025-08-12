@@ -40,21 +40,34 @@ namespace MiddleEarthTrader.Repository.Repositories
                 if (existingModifier != null)
                 {
                     existingModifier.PriceModifierPercentage = modifier.PriceModifierPercentage;
+
+
+
                     _context.MaterialPriceModifiers.Update(existingModifier);
                 }
-                else
-                {
+                
                     await _context.MaterialPriceModifiers.AddAsync(modifier);
-                }
+               
 
-   
+                // Material fiyat güncelleme
                 material.CurrentPrice = material.CurrentPrice * (1 + modifier.PriceModifierPercentage);
-
                 _context.Materials.Update(material);
+
+                // Burada GameEvents tablosundaki ilgili event'i alıp AlreadyHappened = true yapıyoruz
+                var gameEvent = await _context.GameEvents
+                    .FirstOrDefaultAsync(e => e.Id == modifier.EventId);
+
+                if (gameEvent != null)
+                {
+                    gameEvent.AlreadyHappened = true;
+                    _context.GameEvents.Update(gameEvent);
+                }
             }
 
             await _context.SaveChangesAsync();
         }
+
+
 
 
     }

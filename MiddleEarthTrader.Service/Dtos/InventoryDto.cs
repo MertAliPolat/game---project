@@ -11,6 +11,7 @@ namespace MiddleEarthTrader.Service.Dtos
         public Guid MaterialId { get; set; }
         public string MaterialName { get; set; }
         public int Quantity { get; set; }
+        public decimal CurrentPrice { get; set; }
         public decimal AveragePurchasePrice { get; set; }
     }
 }

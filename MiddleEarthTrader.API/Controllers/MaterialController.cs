@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using MiddleEarthTrader.Service.Interfaces;
+﻿
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MiddleEarthTrader.Service.Dtos;
+using MiddleEarthTrader.Service.Interfaces;
+using MiddleEarthTrader.Service.Services;
 using System.Collections.Generic;
 
 namespace MiddleEarthTrader.API.Controllers
@@ -10,10 +13,14 @@ namespace MiddleEarthTrader.API.Controllers
     public class MaterialController : ControllerBase
     {
         private readonly IMaterialService _materialService;
+        private readonly IGameEventService _gameEventService;
+        private readonly ILogger<MaterialController> _logger;
 
-        public MaterialController(IMaterialService materialService, IGameEventService gameEventService)
+        public MaterialController(IMaterialService materialService, IGameEventService gameEventService, ILogger<MaterialController> logger)
         {
             _materialService = materialService;
+            _gameEventService = gameEventService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -23,7 +30,7 @@ namespace MiddleEarthTrader.API.Controllers
             return Ok(materials);
         }
 
-        [HttpPost("modify-prices")]
+        [HttpPost("ModifyPrices")]
         public async Task<IActionResult> ModifyPrices([FromBody] List<MaterialPriceModifierDto> modifiers)
         {
             if (modifiers == null || !modifiers.Any())

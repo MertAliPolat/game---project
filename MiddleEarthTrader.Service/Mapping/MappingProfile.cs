@@ -25,7 +25,8 @@ namespace MiddleEarthTrader.Service.Mapping
     .ForMember(dest => dest.Role, opt => opt.MapFrom(src => src.Role.ToString()));
 
             CreateMap<Inventory, InventoryDto>()
-                .ForMember(dest => dest.MaterialName, opt => opt.MapFrom(src => src.Material.Name));
+     .ForMember(dest => dest.MaterialName, opt => opt.MapFrom(src => src.Material.Name))
+     .ForMember(dest => dest.CurrentPrice, opt => opt.MapFrom(src => src.Material.CurrentPrice));
         }
     }
 }
