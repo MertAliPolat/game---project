@@ -1,11 +1,12 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using MiddleEarthTrader.Repository.ContextDb;
+using MiddleEarthTrader.Repository.Interfaces;
 using MiddleEarthTrader.Repository.Repositories;
 using MiddleEarthTrader.Service.Interfaces;
 using MiddleEarthTrader.Service.Mapping;
 using MiddleEarthTrader.Service.Services;
-using AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -30,6 +31,8 @@ builder.Services.AddScoped<IMaterialService, MaterialService>();
 builder.Services.AddScoped<MaterialRepository>();
 builder.Services.AddScoped<IGameEventService, GameEventService>();
 builder.Services.AddScoped<GameEventRepository>();
+builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
+builder.Services.AddScoped<IInventoryService, InventoryService>();
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend",

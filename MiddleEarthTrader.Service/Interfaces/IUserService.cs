@@ -13,5 +13,8 @@ namespace MiddleEarthTrader.Service.Interfaces
     {
         Task<User?> LoginAsync(UserLoginDto loginDto);
         Task<ProfileDto> GetProfileAsync(Guid userId);
+
+
+        
     }
 }
