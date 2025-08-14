@@ -87,16 +87,13 @@ namespace MiddleEarthTrader.Repository.Repositories
             if (inventory == null || inventory.Quantity < quantity)
                 throw new Exception("Not enough material in inventory to sell");
 
-            // Kullanıcının gold'unu artır
             var totalGain = material.CurrentPrice * quantity;
             user.Gold += totalGain;
             _context.Users.Update(user);
 
-            // Material stokunu artır
             material.AvailableStock += quantity;
             _context.Materials.Update(material);
 
-            // Inventory miktarını düşür
             inventory.Quantity -= quantity;
             if (inventory.Quantity <= 0)
             {
